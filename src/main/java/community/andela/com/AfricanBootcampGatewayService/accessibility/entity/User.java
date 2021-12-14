@@ -1,5 +1,6 @@
 package community.andela.com.AfricanBootcampGatewayService.accessibility.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import community.andela.com.AfricanBootcampGatewayService.accessibility.auth.Role;
 import lombok.Getter;
@@ -18,28 +19,36 @@ import java.util.UUID;
 public class User {
     @Id
     @Column(name = "id", nullable = false)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private UUID id;
 
     @Column(name = "user_name", unique = true)
+    @JsonProperty(access = JsonProperty.Access.READ_WRITE)
     private String userName;
 
     @Enumerated(EnumType.STRING)
+    @JsonProperty(access = JsonProperty.Access.READ_WRITE)
     @Column(name = "role", nullable = false)
     private Role role;
 
     @Column(name = "password", nullable = false)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @Column(name = "account_expires", nullable = false)
-    private Boolean accountExpires = false;
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private Boolean accountExpires;
 
     @Column(name = "account_locked", nullable = false)
-    private Boolean accountLocked = false;
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private Boolean accountLocked;
 
     @Column(name = "credential_expires", nullable = false)
-    private Boolean credentialExpires = false;
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private Boolean credentialExpires;
 
     @Column(name = "enabled", nullable = false)
-    private Boolean enabled = false;
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private Boolean enabled;
 
 }
