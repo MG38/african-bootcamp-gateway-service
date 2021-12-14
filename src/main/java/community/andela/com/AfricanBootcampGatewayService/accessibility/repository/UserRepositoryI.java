@@ -1,4 +1,4 @@
-package community.andela.com.AfricanBootcampGatewayService;
+package community.andela.com.AfricanBootcampGatewayService.accessibility.repository;
 
 import community.andela.com.AfricanBootcampGatewayService.accessibility.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;

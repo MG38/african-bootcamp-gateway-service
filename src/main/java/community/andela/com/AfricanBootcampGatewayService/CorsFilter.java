@@ -13,7 +13,7 @@ import java.io.IOException;
 
 @WebFilter(urlPatterns = "/*",asyncSupported = true)
 @Order(Ordered.HIGHEST_PRECEDENCE)
-public class AddResponseHeaderFilter implements Filter {
+public class CorsFilter implements Filter {
     /**
      * Called by the web container to indicate to a filter that it is being
      * placed into service. The servlet container calls the init method exactly
