@@ -1,5 +1,6 @@
-package community.andela.com.AfricanBootcampGatewayService;
+package community.andela.com.AfricanBootcampGatewayService.exception.controller;
 
+import community.andela.com.AfricanBootcampGatewayService.exception.dto.Error;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

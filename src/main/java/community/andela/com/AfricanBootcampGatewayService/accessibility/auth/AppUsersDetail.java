@@ -1,6 +1,6 @@
-package community.andela.com.AfricanBootcampGatewayService;
+package community.andela.com.AfricanBootcampGatewayService.accessibility.auth;
 
-import lombok.AllArgsConstructor;
+import community.andela.com.AfricanBootcampGatewayService.accessibility.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

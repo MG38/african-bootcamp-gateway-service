@@ -1,6 +1,7 @@
-package community.andela.com.AfricanBootcampGatewayService;
+package community.andela.com.AfricanBootcampGatewayService.accessibility.entity;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import community.andela.com.AfricanBootcampGatewayService.accessibility.auth.Role;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +14,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Entity
 @Table(name="user",schema = "african_bootcamp_server")
+@JsonPropertyOrder(alphabetic = true)
 public class User {
     @Id
     @Column(name = "id", nullable = false)

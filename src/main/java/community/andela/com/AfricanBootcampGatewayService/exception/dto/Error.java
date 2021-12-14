@@ -1,4 +1,4 @@
-package community.andela.com.AfricanBootcampGatewayService;
+package community.andela.com.AfricanBootcampGatewayService.exception.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

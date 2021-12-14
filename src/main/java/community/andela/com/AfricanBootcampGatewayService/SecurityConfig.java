@@ -1,5 +1,6 @@
 package community.andela.com.AfricanBootcampGatewayService;
 
+import community.andela.com.AfricanBootcampGatewayService.accessibility.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,7 +22,7 @@ import java.security.SecureRandom;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    AppUserDetailsService appUserDetailsService;
+    UserDetailsServiceImpl userDetailsServiceImpl;
 
     /**
      * Override this method to configure the {@link HttpSecurity}. Typically subclasses
@@ -37,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * `permitAll()` authorization rule for more details on public endpoints.
      *
      * @param http the {@link HttpSecurity} to modify
-     * @throws Exception if an error occurs
+     * @throws Exception if an exception occurs
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -58,7 +59,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected UserDetailsService userDetailsService() {
-        return appUserDetailsService;
+        return userDetailsServiceImpl;
     }
 
     @Bean

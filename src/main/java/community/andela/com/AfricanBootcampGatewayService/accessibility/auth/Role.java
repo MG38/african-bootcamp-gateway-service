@@ -1,4 +1,4 @@
-package community.andela.com.AfricanBootcampGatewayService;
+package community.andela.com.AfricanBootcampGatewayService.accessibility.auth;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 

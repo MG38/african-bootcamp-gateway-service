@@ -64,7 +64,7 @@ public class AddResponseHeaderFilter implements Filter {
      * @param chain    Provides access to the next filter in the chain for this
      *                 filter to pass the request and response to for further
      *                 processing
-     * @throws IOException      if an I/O error occurs during this filter's
+     * @throws IOException      if an I/O exception occurs during this filter's
      *                          processing of the request
      * @throws ServletException if the processing fails for any other reason
      */
