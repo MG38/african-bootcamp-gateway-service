@@ -18,17 +18,19 @@ public class AfricanBootcampGatewayServiceApplication {
 	}
 
 	@Autowired
-	TokenFilter tokenFilter;
+	TokenValidationFilter tokenValidationFilter;
 
 	//Another way of creating Filter in Spring boot
 	@Bean
-	public FilterRegistrationBean<TokenFilter> orderFilter() {
-		FilterRegistrationBean<TokenFilter> filter = new FilterRegistrationBean<>();
-		filter.setName("tokenFilter");
-		filter.setFilter(tokenFilter);
+	public FilterRegistrationBean<TokenValidationFilter> orderFilter() {
+		FilterRegistrationBean<TokenValidationFilter> filter = new FilterRegistrationBean<>();
+		filter.setName("tokenValidationFilter");
+		filter.setFilter(tokenValidationFilter);
 		//Assign priority
 		filter.setOrder(-1);
-		filter.setUrlPatterns(Arrays.asList("/*"));
+		filter.setUrlPatterns(Arrays.asList(
+				"/logout"
+		));
 		filter.setAsyncSupported(true);
 		return filter;
 	}

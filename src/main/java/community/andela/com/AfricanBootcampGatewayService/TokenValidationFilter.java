@@ -15,7 +15,7 @@ import java.util.Base64;
 import java.util.Date;
 
 @Component
-public class TokenFilter implements Filter {
+public class TokenValidationFilter implements Filter {
 
     @Autowired
     UserRepositoryI userRepository;
@@ -83,9 +83,6 @@ public class TokenFilter implements Filter {
         var token = httpServletRequest.getHeader("Token");
         var authorization = httpServletRequest.getHeader("Authorization");
 
-        if(httpServletRequest.getRequestURI().contains("/api/login") || httpServletRequest.getRequestURI().contains("/api/accounts")){// Request URI contains login path
-            chain.doFilter(request,response);
-        }
         if(authorization != null && authorization.startsWith("Basic")){ // The authorization header uses Basic and not Bearer
             var decodedCredentials = new String(Base64.getDecoder().decode(authorization.split(" ")[1]));
             var username = decodedCredentials.split(":")[0];
