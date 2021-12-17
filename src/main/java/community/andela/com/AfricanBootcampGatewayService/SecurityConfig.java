@@ -1,5 +1,6 @@
 package community.andela.com.AfricanBootcampGatewayService;
 
+import community.andela.com.AfricanBootcampGatewayService.accessibility.auth.Role;
 import community.andela.com.AfricanBootcampGatewayService.accessibility.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -49,7 +50,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic()
                 .and()
                 .authorizeHttpRequests()
-                .antMatchers(HttpMethod.GET,"/login").permitAll();
+                .antMatchers(HttpMethod.POST,"/accounts").permitAll()
+                .antMatchers(HttpMethod.GET,"/login").hasAnyRole(Role.ADMIN.name(),Role.LEARNER.name(),Role.SERVICE.name(),Role.TUTOR.name())
+                .anyRequest()
+                .authenticated();
     }
 
     @Override
