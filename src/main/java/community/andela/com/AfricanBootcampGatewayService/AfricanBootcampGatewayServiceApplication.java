@@ -24,7 +24,7 @@ public class AfricanBootcampGatewayServiceApplication {
 	@Bean
 	public FilterRegistrationBean<TokenFilter> orderFilter() {
 		FilterRegistrationBean<TokenFilter> filter = new FilterRegistrationBean<>();
-		filter.setName("reqFilter");
+		filter.setName("tokenFilter");
 		filter.setFilter(tokenFilter);
 		//Assign priority
 		filter.setOrder(-1);
