@@ -29,34 +29,38 @@ public class SignInServiceImpl implements SignInServiceI {
 
     @Override
     public Single<User> createAccount(User user) {
-        return  Single.create(emitter -> {
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-            user.setAccountLocked(false);
-            user.setAccountExpires(false);
-            user.setEnabled(true);
-            user.setCredentialExpires(false);
-            emitter.onSuccess(userRepositoryI.save(user));
-        });
+        return  Single.just(createAccountHandler(user));
+    }
+
+    private User createAccountHandler(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setAccountLocked(false);
+        user.setAccountExpires(false);
+        user.setEnabled(true);
+        user.setCredentialExpires(false);
+        return userRepositoryI.save(user);
     }
 
     @Override
     public Single<String> signIn(User user) {
-        return  Single.create(emitter -> {
-            var loginUser = userRepositoryI.findUserByUserName(user.getUserName());
-            Key key = Global.generateKey(secret_key);
-            var jwt_token = Jwts.builder()
-                    .claim("username", loginUser.getUserName())
-                    .claim("firstname", loginUser.getFirstName())
-                    .claim("lastname", loginUser.getLastName())
-                    .claim("password", loginUser.getPassword())
-                    .claim("role", "ROLE_"+loginUser.getRole().name())
-                    .setId(loginUser.getId().toString())
-                    .setIssuedAt(Date.from(Instant.now()))
-                    .setExpiration(Date.from(Instant.now().plus(2L, ChronoUnit.DAYS)))
-                    .signWith(key)
-                    .compact();
-            emitter.onSuccess(jwt_token);
-        });
+        return  Single.just(signInHandler(user));
+    }
+
+    private String signInHandler(User user) {
+        var loginUser = userRepositoryI.findUserByUserName(user.getUserName());
+        Key key = Global.generateKey(secret_key);
+        var jwt_token = Jwts.builder()
+                .claim("username", loginUser.getUserName())
+                .claim("firstname", loginUser.getFirstName())
+                .claim("lastname", loginUser.getLastName())
+                .claim("password", loginUser.getPassword())
+                .claim("role", "ROLE_"+loginUser.getRole().name())
+                .setId(loginUser.getId().toString())
+                .setIssuedAt(Date.from(Instant.now()))
+                .setExpiration(Date.from(Instant.now().plus(2L, ChronoUnit.DAYS)))
+                .signWith(key)
+                .compact();
+        return jwt_token;
     }
 
 }

@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @Getter
@@ -23,6 +24,7 @@ public class User {
     private UUID id;
 
     @Column(name = "user_name", unique = true)
+    @NotNull
     @JsonProperty(access = JsonProperty.Access.READ_WRITE)
     private String userName;
 
@@ -41,6 +43,7 @@ public class User {
 
     @Column(name = "password", nullable = false)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @NotNull
     private String password;
 
     @Column(name = "account_expires", nullable = false)
