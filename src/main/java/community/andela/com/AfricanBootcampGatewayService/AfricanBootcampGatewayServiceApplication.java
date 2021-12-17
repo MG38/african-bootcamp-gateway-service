@@ -29,7 +29,7 @@ public class AfricanBootcampGatewayServiceApplication {
 		//Assign priority
 		filter.setOrder(-1);
 		filter.setUrlPatterns(Arrays.asList(
-				"/logout"
+				"/api/logout"
 		));
 		filter.setAsyncSupported(true);
 		return filter;

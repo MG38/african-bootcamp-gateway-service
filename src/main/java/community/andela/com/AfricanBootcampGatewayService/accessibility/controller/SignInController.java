@@ -21,6 +21,13 @@ public class SignInController {
     @Autowired
     SignInServiceI signInService;
 
+    @GetMapping("/")
+    public DeferredResult<ResponseEntity> preflightRequest(){
+        var deferredResult = new DeferredResult<ResponseEntity>();
+        var responseEntity = new ResponseEntity(HttpStatus.OK);
+        deferredResult.setResult(responseEntity);
+        return deferredResult;
+    }
     @GetMapping("/login")
     public DeferredResult<ResponseEntity> signIn(@RequestBody @Valid User user, BindingResult bindingResult){
         var deferredResult = new DeferredResult<ResponseEntity>();

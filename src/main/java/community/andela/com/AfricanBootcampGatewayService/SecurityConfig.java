@@ -50,8 +50,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic()
                 .and()
                 .authorizeHttpRequests()
-                .antMatchers(HttpMethod.POST,"/accounts").permitAll()
-                .antMatchers(HttpMethod.GET,"/login").hasAnyRole(Role.ADMIN.name(),Role.LEARNER.name(),Role.SERVICE.name(),Role.TUTOR.name())
+                .antMatchers(HttpMethod.GET,"/api/").permitAll()
+                .antMatchers(HttpMethod.POST,"/api/accounts").permitAll()
+                .antMatchers(HttpMethod.GET,"/api/login").hasAnyRole(Role.ADMIN.name(),Role.LEARNER.name(),Role.SERVICE.name(),Role.TUTOR.name())
+                .antMatchers(HttpMethod.GET,"/api/logout").hasAnyRole(Role.ADMIN.name(),Role.LEARNER.name(),Role.SERVICE.name(),Role.TUTOR.name())
                 .anyRequest()
                 .authenticated();
     }
