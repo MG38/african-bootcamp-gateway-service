@@ -39,8 +39,8 @@ public class SignInController {
                         responseEntity.getHeaders().add("Token",token);
                         deferredResult.setResult(responseEntity);
                     },
-                    throwable -> {
-                        throw throwable;
+                    error -> {
+                        deferredResult.setErrorResult(new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED));
                     }
             );
         }else {
@@ -59,19 +59,23 @@ public class SignInController {
     }
 
     @PostMapping("/accounts")
-    public DeferredResult<ResponseEntity<User>> createAccount(@RequestBody @Valid User user){
+    public DeferredResult<ResponseEntity<User>> createAccount(@RequestBody @Valid User user, BindingResult bindingResult){
         var deferredResult = new DeferredResult<ResponseEntity<User>>();
 
-        signInService.createAccount(user).subscribe(
-          createdUser -> {
-              var responseEntity = new ResponseEntity(createdUser,HttpStatus.OK);
-              responseEntity.getHeaders().add("Token","");
-              deferredResult.setResult(responseEntity);
-          },
-          throwable -> {
-              throw throwable;
-          }
-        );
+        if(!bindingResult.hasErrors()){
+            signInService.createAccount(user).subscribe(
+                    createdUser -> {
+                        var responseEntity = new ResponseEntity(createdUser,HttpStatus.OK);
+                        responseEntity.getHeaders().add("Token","");
+                        deferredResult.setResult(responseEntity);
+                    },
+                    error -> {
+                        deferredResult.setErrorResult(new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED));
+                    }
+            );
+        }else{
+            throw new ValidationException("One or more filed in the JSON payload failed validation");
+        }
         return deferredResult;
     }
 }
