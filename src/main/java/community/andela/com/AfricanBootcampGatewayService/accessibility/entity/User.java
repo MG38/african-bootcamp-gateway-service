@@ -26,6 +26,14 @@ public class User {
     @JsonProperty(access = JsonProperty.Access.READ_WRITE)
     private String userName;
 
+    @Column(name = "first_name")
+    @JsonProperty(access = JsonProperty.Access.READ_WRITE)
+    private String firstName;
+
+    @Column(name = "last_name")
+    @JsonProperty(access = JsonProperty.Access.READ_WRITE)
+    private String lastName;
+
     @Enumerated(EnumType.STRING)
     @JsonProperty(access = JsonProperty.Access.READ_WRITE)
     @Column(name = "role", nullable = false)

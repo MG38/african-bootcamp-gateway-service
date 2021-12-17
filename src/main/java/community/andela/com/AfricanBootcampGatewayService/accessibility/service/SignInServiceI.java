@@ -3,7 +3,7 @@ package community.andela.com.AfricanBootcampGatewayService.accessibility.service
 import community.andela.com.AfricanBootcampGatewayService.accessibility.entity.User;
 import io.reactivex.rxjava3.core.Single;
 
-public interface SignServiceI {
+public interface SignInServiceI {
     /**
      * Use for user account creation.
      * @param user
@@ -16,12 +16,6 @@ public interface SignServiceI {
      * @param user
      * @return Single<User>
      */
-    Single<User> signIn(User user);
+    Single<String> signIn(User user);
 
-    /**
-     * use for user account signing out.
-     * @param user
-     * @return
-     */
-    Single<User> signOut(User user);
 }

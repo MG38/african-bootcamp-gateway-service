@@ -5,7 +5,7 @@ public enum Permission {
     WRITE("auth:write"),
     UPDATE("auth:update"),
     DELETE("auth:delete"),
-    CREATZOOMLINK("auth:create-zoom-link"),
+    CREATE_ZOOM_LINK("auth:create-zoom-link"),
     SERVICE("auth:service");
 
     private final String authority;
