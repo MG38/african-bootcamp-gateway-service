@@ -77,6 +77,7 @@ public class TokenValidationFilter implements Filter {
      */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        System.out.println("-->Validating Token--->");
         var httpServletResponse = (HttpServletResponse) response;
         var httpServletRequest = (HttpServletRequest) request;
 
