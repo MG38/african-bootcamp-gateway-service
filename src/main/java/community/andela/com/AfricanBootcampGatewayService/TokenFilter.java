@@ -83,7 +83,7 @@ public class TokenFilter implements Filter {
         var token = httpServletRequest.getHeader("Token");
         var authorization = httpServletRequest.getHeader("Authorization");
 
-        if(httpServletRequest.getRequestURI().contains("/api/login")){// Request URI contains login path
+        if(httpServletRequest.getRequestURI().contains("/api/login") || httpServletRequest.getRequestURI().contains("/api/accounts")){// Request URI contains login path
             chain.doFilter(request,response);
         }
         if(authorization != null && authorization.startsWith("Basic")){ // The authorization header uses Basic and not Bearer
