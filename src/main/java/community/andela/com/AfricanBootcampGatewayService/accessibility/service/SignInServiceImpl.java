@@ -16,7 +16,7 @@ import java.security.Key;
 import java.sql.Date;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.Base64;
+
 
 @Service
 public class SignInServiceImpl implements SignInServiceI {
@@ -26,8 +26,6 @@ public class SignInServiceImpl implements SignInServiceI {
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    @Value("SECRET_KEY")
-    String secret_key;
 
     @Override
     public Single<User> createAccount(User user) {
@@ -50,7 +48,7 @@ public class SignInServiceImpl implements SignInServiceI {
 
     private String signInHandler(String username) {
         var loginUser = userRepositoryI.findUserByUserName(username);
-        Key key = Global.generateKey(secret_key);
+        Key key = Global.generateKey("asdfSFS34wfsdfsdfSDSD32dfsddDDerQSNCK34SOWEK5354fdgdf4");
         var jwt_token = Jwts.builder()
                 .claim("username", loginUser.getUserName())
                 .claim("firstname", loginUser.getFirstName())

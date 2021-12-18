@@ -21,8 +21,6 @@ public class TokenValidationFilter implements Filter {
     @Autowired
     UserRepositoryI userRepository;
 
-    @Value("SECRET_KEY")
-    String secret_key;
     /**
      * Called by the web container to indicate to a filter that it is being
      * placed into service. The servlet container calls the init method exactly
@@ -132,7 +130,7 @@ public class TokenValidationFilter implements Filter {
     }
 
     private boolean validateToken(String token, String username){
-        Key key = Global.generateKey(secret_key);
+        Key key = Global.generateKey("asdfSFS34wfsdfsdfSDSD32dfsddDDerQSNCK34SOWEK5354fdgdf4");
         var user = userRepository.findUserByUserName(username);
         var claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJwt(token).getBody();
         var claimed_username = claims.get("username", String.class);
