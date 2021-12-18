@@ -11,6 +11,7 @@ import javax.validation.ValidationException;
 @RestControllerAdvice
 public class ExceptionController {
 
+/*
     @ExceptionHandler(ValidationException.class)
     public ResponseEntity<Error> handleValidationError(Exception exception){
         return new ResponseEntity<>(new Error(exception.getMessage(), HttpStatus.FAILED_DEPENDENCY),HttpStatus.FAILED_DEPENDENCY);
@@ -30,4 +31,5 @@ public class ExceptionController {
     public ResponseEntity<Error> handleClassCastException(Exception exception){
         return new ResponseEntity<>(new Error(exception.getMessage(), HttpStatus.FAILED_DEPENDENCY), HttpStatus.FAILED_DEPENDENCY);
     }
+ */
 }
