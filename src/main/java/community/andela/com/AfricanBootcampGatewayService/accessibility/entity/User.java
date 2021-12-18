@@ -6,6 +6,8 @@ import community.andela.com.AfricanBootcampGatewayService.accessibility.auth.Rol
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -19,6 +21,9 @@ import java.util.UUID;
 @JsonPropertyOrder(alphabetic = true)
 public class User {
     @Id
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID",strategy = "org.hibernate.id.UUIDGenerator")
+    @Type(type = "org.hibernate.type.UUIDCharType")
     @Column(name = "id", nullable = false)
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private UUID id;
