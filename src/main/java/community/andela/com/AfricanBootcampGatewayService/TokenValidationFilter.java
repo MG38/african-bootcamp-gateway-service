@@ -3,6 +3,7 @@ package community.andela.com.AfricanBootcampGatewayService;
 import community.andela.com.AfricanBootcampGatewayService.accessibility.repository.UserRepositoryI;
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
@@ -20,7 +21,8 @@ public class TokenValidationFilter implements Filter {
     @Autowired
     UserRepositoryI userRepository;
 
-    String secret_key = System.getenv("SECRET_KEY");
+    @Value("SECRET_KEY")
+    String secret_key;
     /**
      * Called by the web container to indicate to a filter that it is being
      * placed into service. The servlet container calls the init method exactly

@@ -7,6 +7,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.reactivex.rxjava3.core.Single;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +26,8 @@ public class SignInServiceImpl implements SignInServiceI {
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    String secret_key = System.getenv("SECRET_KEY");
+    @Value("SECRET_KEY")
+    String secret_key;
 
     @Override
     public Single<User> createAccount(User user) {
