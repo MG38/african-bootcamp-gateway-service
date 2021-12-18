@@ -42,12 +42,12 @@ public class SignInServiceImpl implements SignInServiceI {
     }
 
     @Override
-    public Single<String> signIn(User user) {
-        return  Single.just(signInHandler(user));
+    public Single<String> signIn(String username) {
+        return  Single.just(signInHandler(username));
     }
 
-    private String signInHandler(User user) {
-        var loginUser = userRepositoryI.findUserByUserName(user.getUserName());
+    private String signInHandler(String username) {
+        var loginUser = userRepositoryI.findUserByUserName(username);
         Key key = Global.generateKey(secret_key);
         var jwt_token = Jwts.builder()
                 .claim("username", loginUser.getUserName())

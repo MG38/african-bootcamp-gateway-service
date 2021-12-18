@@ -13,9 +13,9 @@ public interface SignInServiceI {
 
     /**
      * Use for user account signing in.
-     * @param user
-     * @return Single<User>
+     * @param username
+     * @return Single<String>
      */
-    Single<String> signIn(User user);
+    Single<String> signIn(String username);
 
 }

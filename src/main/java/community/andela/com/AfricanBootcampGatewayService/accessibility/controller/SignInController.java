@@ -31,23 +31,18 @@ public class SignInController {
         return deferredResult;
     }
     @GetMapping("/login")
-    public DeferredResult<ResponseEntity> signIn(@RequestBody @Valid User user, HttpServletResponse response,BindingResult bindingResult){
+    public DeferredResult<ResponseEntity> signIn(@RequestParam(name = "username") String username, HttpServletResponse response){
         var deferredResult = new DeferredResult<ResponseEntity>();
-
-        if(!bindingResult.hasErrors()){
-            signInService.signIn(user).subscribe(
-                    token -> {
-                        var responseEntity = new ResponseEntity(HttpStatus.OK);
-                        response.setHeader("Token",token);
-                        deferredResult.setResult(responseEntity);
-                    },
-                    error -> {
-                        deferredResult.setErrorResult(new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED));
-                    }
-            );
-        }else {
-            throw new ValidationException("One or more filed in the JSON payload failed validation");
-        }
+        signInService.signIn(username).subscribe(
+                token -> {
+                    var responseEntity = new ResponseEntity(HttpStatus.OK);
+                    response.setHeader("Token",token);
+                    deferredResult.setResult(responseEntity);
+                },
+                error -> {
+                    deferredResult.setErrorResult(new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED));
+                }
+        );
         return deferredResult;
     }
 
