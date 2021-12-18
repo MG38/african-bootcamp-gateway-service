@@ -90,7 +90,7 @@ public class TokenValidationFilter implements Filter {
             var username = decodedCredentials.split(":")[0];
             System.out.println("-->Username: " + username + " --->");
 
-            if(token.equals("") || token == null){ //The request contain empty token header
+            if(token == null || token.equals("")){ //The request contain empty token header
                 System.out.println("-->Token is empty or null --->");
                 httpServletResponse.sendError(401,"Token header contains no value");
             }else{
