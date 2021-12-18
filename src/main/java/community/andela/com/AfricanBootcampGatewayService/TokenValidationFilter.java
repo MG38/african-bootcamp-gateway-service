@@ -135,7 +135,7 @@ public class TokenValidationFilter implements Filter {
     private boolean validateToken(String token, String username){
         Key key = Global.generateKey("asdfSFS34wfsdfsdfSDSD32dfsddDDerQSNCK34SOWEK5354fdgdf4");
         var user = userRepository.findUserByUserName(username);
-        var claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJwt(token).getBody();
+        var claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
         var claimed_username = claims.get("username", String.class);
         var claimed_firstname = claims.get("firstname", String.class);
         var claimed_lastname = claims.get("lastname", String.class);
