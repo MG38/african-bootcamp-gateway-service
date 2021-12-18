@@ -1,6 +1,7 @@
 package community.andela.com.AfricanBootcampGatewayService.accessibility.service;
 
 import community.andela.com.AfricanBootcampGatewayService.Global;
+import community.andela.com.AfricanBootcampGatewayService.accessibility.auth.Role;
 import community.andela.com.AfricanBootcampGatewayService.accessibility.entity.User;
 import community.andela.com.AfricanBootcampGatewayService.accessibility.repository.UserRepositoryI;
 import io.jsonwebtoken.Jwts;
@@ -48,19 +49,27 @@ public class SignInServiceImpl implements SignInServiceI {
 
     private String signInHandler(String username) {
         var loginUser = userRepositoryI.findUserByUserName(username);
-        Key key = Global.generateKey("asdfSFS34wfsdfsdfSDSD32dfsddDDerQSNCK34SOWEK5354fdgdf4");
-        var jwt_token = Jwts.builder()
+        var jwt_builder =  Jwts.builder()
                 .claim("username", loginUser.getUserName())
                 .claim("firstname", loginUser.getFirstName())
                 .claim("lastname", loginUser.getLastName())
                 .claim("password", loginUser.getPassword())
                 .claim("role", "ROLE_"+loginUser.getRole().name())
                 .setId(loginUser.getId().toString())
-                .setIssuedAt(Date.from(Instant.now()))
-                .setExpiration(Date.from(Instant.now().plus(2L, ChronoUnit.DAYS)))
-                .signWith(key)
-                .compact();
-        return jwt_token;
+                .setIssuedAt(Date.from(Instant.now()));
+        if(loginUser.getRole().equals(Role.SERVICE)){//service jwt should not get expired and be signed with a unique key
+             return jwt_builder
+                    .signWith(Global.generateKey("asdfSFS34wfsdfsdfSSDS32dfsddDDerQSNCK34SOWEK5354fdgdg5"))
+                    .compact();
+
+        }else{ //other roles jwt token should have 2 days expiration
+              return jwt_builder
+                      .setExpiration(Date.from(Instant.now().plus(2L, ChronoUnit.DAYS)))
+                      .signWith(Global.generateKey("asdfSFS34wfsdfsdfSDSD32dfsddDDerQSNCK34SOWEK5354fdgdf4"))
+                      .compact();
+
+        }
+
     }
 
 }

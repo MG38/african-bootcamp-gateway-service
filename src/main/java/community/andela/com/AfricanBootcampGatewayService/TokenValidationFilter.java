@@ -1,5 +1,6 @@
 package community.andela.com.AfricanBootcampGatewayService;
 
+import community.andela.com.AfricanBootcampGatewayService.accessibility.auth.Role;
 import community.andela.com.AfricanBootcampGatewayService.accessibility.repository.UserRepositoryI;
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -130,20 +131,31 @@ public class TokenValidationFilter implements Filter {
     }
 
     private boolean validateToken(String token, String username){
-        Key key = Global.generateKey("asdfSFS34wfsdfsdfSDSD32dfsddDDerQSNCK34SOWEK5354fdgdf4");
         var user = userRepository.findUserByUserName(username);
-        var claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
-        var claimed_username = claims.get("username", String.class);
-        var claimed_firstname = claims.get("firstname", String.class);
-        var claimed_lastname = claims.get("lastname", String.class);
-        var claimed_password = claims.get("password", String.class);
-        var claimed_role = claims.get("role", String.class);
+        if(user.getRole().equals(Role.SERVICE)){
+            var claims = Jwts.parserBuilder()
+                    .setSigningKey(Global.generateKey("asdfSFS34wfsdfsdfSSDS32dfsddDDerQSNCK34SOWEK5354fdgdg5"))
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
+            return claims.get("firstname", String.class).equals(user.getFirstName())
+                    && claims.get("role", String.class).equals("ROLE_" + user.getRole().name())
+                    && claims.get("lastname", String.class).equals(user.getLastName())
+                    && claims.get("username", String.class).equals(user.getUserName())
+                    && claims.get("password", String.class).equals(user.getPassword());
+        }else{
+            var claims = Jwts.parserBuilder()
+                    .setSigningKey(Global.generateKey("asdfSFS34wfsdfsdfSDSD32dfsddDDerQSNCK34SOWEK5354fdgdf4"))
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
+            return claims.get("firstname", String.class).equals(user.getFirstName())
+                    && claims.get("role", String.class).equals("ROLE_" + user.getRole().name())
+                    && claims.get("lastname", String.class).equals(user.getLastName())
+                    && claims.get("username", String.class).equals(user.getUserName())
+                    && claims.get("password", String.class).equals(user.getPassword())
+                    && Date.from(Instant.now()).toInstant().compareTo(claims.getExpiration().toInstant()) < 0;
 
-        return claimed_firstname.equals(user.getFirstName())
-                && claimed_role.equals("ROLE_" + user.getRole().name())
-                && claimed_lastname.equals(user.getLastName())
-                && claimed_username.equals(user.getUserName())
-                && claimed_password.equals(user.getPassword())
-                && Date.from(Instant.now()).toInstant().compareTo(claims.getExpiration().toInstant()) < 0;
+        }
     }
 }
