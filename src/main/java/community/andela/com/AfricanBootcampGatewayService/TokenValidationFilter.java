@@ -89,22 +89,17 @@ public class TokenValidationFilter implements Filter {
             var username = decodedCredentials.split(":")[0];
             System.out.println("-->Username: " + username + " --->");
 
-            if(token == null){ //The request does not contain Token header
-                System.out.println("-->Token is null --->");
-                httpServletResponse.sendError(401,"Request fail to contain token header");
-            }
-
-            if(token.equals("")){ //The request contain empty token header
-                System.out.println("-->Token is empty --->");
+            if(token.equals("") || token == null){ //The request contain empty token header
+                System.out.println("-->Token is empty or null --->");
                 httpServletResponse.sendError(401,"Token header contains no value");
-            }
-
-            if(validateToken(token,username)){ //The token header value passes validation
-                System.out.println("-->Token claims valid --->");
-                chain.doFilter(request,response);
-            }else {
-                System.out.println("-->Token claims invalid --->");
-                httpServletResponse.sendError(401,"Token validation fail");
+            }else{
+                if(validateToken(token,username)){ //The token header value passes validation
+                    System.out.println("-->Token claims valid --->");
+                    chain.doFilter(request,response);
+                }else {
+                    System.out.println("-->Token claims invalid --->");
+                    httpServletResponse.sendError(401,"Token validation fail");
+                }
             }
 
         }else{
