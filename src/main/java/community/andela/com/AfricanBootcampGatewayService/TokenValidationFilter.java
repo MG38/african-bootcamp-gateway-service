@@ -100,8 +100,10 @@ public class TokenValidationFilter implements Filter {
             }
 
             if(validateToken(token,username)){ //The token header value passes validation
+                System.out.println("-->Token claims valid --->");
                 chain.doFilter(request,response);
             }else {
+                System.out.println("-->Token claims invalid --->");
                 httpServletResponse.sendError(401,"Token validation fail");
             }
 
@@ -147,6 +149,6 @@ public class TokenValidationFilter implements Filter {
                 && claimed_lastname.equals(user.getLastName())
                 && claimed_username.equals(user.getUserName())
                 && claimed_password.equals(user.getPassword())
-                && claims.getExpiration().toInstant().compareTo(Date.from(Instant.now()).toInstant()) < 0;
+                && Date.from(Instant.now()).toInstant().compareTo(claims.getExpiration().toInstant()) < 0;
     }
 }
