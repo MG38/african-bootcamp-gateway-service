@@ -87,12 +87,15 @@ public class TokenValidationFilter implements Filter {
         if(authorization != null && authorization.startsWith("Basic")){ // The authorization header uses Basic and not Bearer
             var decodedCredentials = new String(Base64.getDecoder().decode(authorization.split(" ")[1]));
             var username = decodedCredentials.split(":")[0];
+            System.out.println("-->Username: " + username + " --->");
 
             if(token == null){ //The request does not contain Token header
+                System.out.println("-->Token is null --->");
                 httpServletResponse.sendError(401,"Request fail to contain token header");
             }
 
             if(token.equals("")){ //The request contain empty token header
+                System.out.println("-->Token is empty --->");
                 httpServletResponse.sendError(401,"Token header contains no value");
             }
 
